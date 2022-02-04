@@ -48,15 +48,16 @@ class MyArray {
 
 
 function shortWord(word) {
-    if (word.length <=5) {
+    let a = toString(word)
+    if (a.length <=5) {
         return false;
     }
-    if (word.length >=6) {
+    if (a.length >=6) {
         return true;
     }
 }  
 
 const array = new MyArray ()
-array.push('shot', 'suck', 'long word', 'very long word', 'gg')
+array.push('shot', 'suck', 'long word', 'very long word', 'gg', 1)
 console.log(array.filter(shortWord))
 console.log(array.forEach(shortWord))
