@@ -12,12 +12,13 @@ class MyArray {
         return this.currentObj[index];
     };
     forEach(callback) {
-        let res = [];
+        let result = new MyArray();
         let values = Object.values(this.currentObj)
         for (let i=0; i<values.length; i++) {
-            res.push(callback(values[i]))
+            result.push(callback(values[i]))
         }
-        return res;
+        this.currentObj = result.currentObj;
+        return undefined;
     }
     deleteByIndex(index){
         for (let i=index; i<this.lengthArray; i++) {
@@ -28,14 +29,22 @@ class MyArray {
         return;
     };
     filter (callback) {
-        let res = [];
+        let result = new MyArray();
         let values = Object.values(this.currentObj)
         for (let i=0; i<values.length; i++) {
             if(callback(values[i])) {
-                res.push(values[i])
+                result.push(values[i])
             }
         }
-        return res
+        return result.currentObj;
+    }
+    map (callback) {
+        let result = new MyArray();
+        let values = Object.values(this.currentObj)
+        for (let i=0; i<values.length; i++) {
+            result.push(callback(values[i]))
+        }
+        return result.currentObj;
     }
     pop(){
         if(this.lengthArray>0) {
@@ -48,16 +57,34 @@ class MyArray {
 
 
 function shortWord(word) {
-    let a = toString(word)
-    if (a.length <=5) {
+    let curWord;
+    if (typeof word !== 'string') {
+        curWord = toString(word);
+    } else {
+        curWord = word;
+    }
+    if (curWord.length <=5) {
         return false;
     }
-    if (a.length >=6) {
+    if (curWord.length >=6) {
         return true;
     }
 }  
 
+function makeUpperCase(string) {
+    let text;
+    if (typeof string !== 'string') {
+        text = toString(string);
+    } else {
+        text = string;
+    }
+
+    return text.toUpperCase();
+}
+
 const array = new MyArray ()
-array.push('shot', 'suck', 'long word', 'very long word', 'gg', 1)
+array.push('shot', 'suck', 'long word', 'very long word', 'gg', 1222222)
 console.log(array.filter(shortWord))
 console.log(array.forEach(shortWord))
+console.log(array.map(makeUpperCase));
+
